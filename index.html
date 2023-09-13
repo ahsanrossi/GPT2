@@ -19,7 +19,7 @@
 
         async function updateTextArea() {
             var text = document.getElementById("input_text").value;
-            const { client } = gradio;
+            const { client } = window.gradio || gradio;
             const app = await client("https://ahsankh-gpt2.hf.space/");
             const result = await app.predict("/predict", [
                 text, // string in 'Input Text' Textbox component
