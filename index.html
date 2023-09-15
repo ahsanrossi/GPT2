@@ -14,20 +14,26 @@
 
     <script>
         async function startUpdate(e) {
-            await updateTextArea();
+            try {
+                await updateTextArea();
+            } catch (error) {
+                console.error("An error occurred:", error);
+            }
         }
 
         async function updateTextArea() {
-            var text = document.getElementById("input_text").value;
-            const { client } = window.gradio || gradio;
-            const app = await client("https://ahsankh-gpt2.hf.space/");
-            const result = await app.predict("/predict", [
-                text, // string in 'Input Text' Textbox component
-            ]);
-
-            console.log(result.data);
-            let textArea = document.getElementById("result");
-            textArea.value = result.data;
+            try {
+                const text = document.getElementById("input_text").value;
+                const { client } = window.gradio || gradio;
+                const app = await client("https://ahsankh-gpt2.hf.space/");
+                const result = await app.predict("/predict", [text]);
+                
+                console.log(result.data);
+                const textArea = document.getElementById("result");
+                textArea.value = result.data;
+            } catch (error) {
+                console.error("An error occurred:", error);
+            }
         }
     </script>
 
